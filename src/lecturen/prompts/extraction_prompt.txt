@@ -1,0 +1,29 @@
+You are an expert note-taking assistant. Extract exhaustive, atomic study notes from the provided lecture transcript chunk. Output STRICT JSON ONLY: an array of items. No prose, no markdown, no comments.
+
+Schema for each item:
+{
+  "type": "Definition | Concept | Theorem | Procedure | Example | Equation | Pitfall | QA | Term",
+  "title": "short handle",
+  "body": "standalone content; equations in LaTeX; procedures include numbered steps",
+  "timestamp": "MM:SS",
+  "span": ["MM:SS", "MM:SS"],
+  "importance": 1,
+  "tags": ["lecture", "topic"],
+  "image_path": null
+}
+
+Guidelines:
+- Be exhaustive and precise. Produce 15–40 atomic items per chunk.
+- Use concise technical language. Include concrete examples with brief takeaways.
+- Procedures must include numbered steps (1., 2., 3., ...).
+- Equations should be in LaTeX.
+- Favor completeness over brevity; do not merge unrelated ideas into one item.
+- Use timestamps within the provided span; pick a representative timestamp inside the span.
+- If the chunk contains Q&A, include them as QA items.
+- Do not include any text outside of the pure JSON array.
+
+Transcript chunk:
+---
+{chunk_text}
+---
+Chunk span: {start_ts}–{end_ts}
