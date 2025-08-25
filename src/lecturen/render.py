@@ -54,14 +54,16 @@ def render_markdown(title: str, source: str, transcript_model: str, llm_model: s
         sec_items = [i for i in items if i.type.value == sec]
         sections.append(_render_section(sec, sec_items))
     sections = [s for s in sections if s]
-    parts = [
-        _front_matter(meta),
-        f"# {title}",
-        "\n".join(sections),
-        "## Links\n",
-        _render_transcript(transcript),
-    ]
-    return "\n\n".join(parts)
+
+    out_lines = []
+    out_lines.append(_front_matter(meta))
+    out_lines.append(f"# {title}")
+    if sections:
+        out_lines.append("\n".join(sections).rstrip())
+    out_lines.append("## Links")
+    out_lines.append("")
+    out_lines.append(_render_transcript(transcript))
+    return "\n".join(out_lines)
 
 def write_markdown(path: Path, text: str) -> None:
     write_text(path, text)
