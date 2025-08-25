@@ -29,7 +29,6 @@ def _render_section(title: str, items: List[AtomicNote]) -> str:
         body = it.body.strip()
         if body:
             out.append(f"  \n  {body}")
-    out.append("")
     return "\n".join(out)
 
 def _render_transcript(transcript: Transcript) -> str:
@@ -59,7 +58,8 @@ def render_markdown(title: str, source: str, transcript_model: str, llm_model: s
     out_lines.append(_front_matter(meta))
     out_lines.append(f"# {title}")
     if sections:
-        out_lines.append("\n".join(sections).rstrip())
+        sections_block = "\n\n".join(sections)
+        out_lines.append(sections_block)
     out_lines.append("## Links")
     out_lines.append("")
     out_lines.append(_render_transcript(transcript))
