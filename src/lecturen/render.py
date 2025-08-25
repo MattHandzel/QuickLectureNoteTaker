@@ -5,7 +5,7 @@ from datetime import datetime
 from .models import AtomicNote, Transcript
 from .utils.io import write_text
 
-SECTION_ORDER = ["Definition","Concept","Theorem","Procedure","Example","Equation","Pitfall","QA"]
+SECTION_ORDER = ["Definition","Concept","Theorem","Example","Procedure","Equation","Pitfall","QA"]
 
 def _front_matter(meta: Dict[str, Any]) -> str:
     lines = ["---"]
@@ -61,6 +61,7 @@ def render_markdown(title: str, source: str, transcript_model: str, llm_model: s
         out_lines.append("")
         sections_block = "\n\n".join(sections)
         out_lines.append(sections_block)
+    out_lines.append("")
     out_lines.append("## Links")
     out_lines.append("")
     out_lines.append(_render_transcript(transcript))
