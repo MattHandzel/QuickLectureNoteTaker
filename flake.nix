@@ -22,6 +22,7 @@
           python-dateutil
           openai
           faster-whisper
+          pytest
         ]);
       in {
         devShells.default = pkgs.mkShell {

@@ -28,7 +28,7 @@ def ingest(
     video_or_url: str = typer.Argument(..., help="Path to local video file or a URL"),
     title: str = typer.Option(None, "--title", help="Optional lecture title override"),
     asr: str = typer.Option("local", "--asr", help="ASR mode: local or openai"),
-    extract: bool = typer.Option(True, "--extract/--no-extract", help="Run extraction and draft render"),
+    extract: bool = typer.Option(False, "--extract/--no-extract", help="Run extraction and draft render"),
     repo_root: str = typer.Option(".", "--repo-root", help="Repository root for workspace"),
 ):
     cfg = load_config()

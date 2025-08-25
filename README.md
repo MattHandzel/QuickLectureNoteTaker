@@ -65,6 +65,27 @@ lecturen review <session_id>
 lecturen render <session_id> [--vault-path ...] [--subfolder capture]
 ```
 
+### Extraction and Render (M2)
+
+Local-first: cloud extraction is opt-in. Set `OPENAI_API_KEY` to enable extraction using OpenAI.
+
+Example:
+```
+export OPENAI_API_KEY=sk-...
+lecturen ingest ./example_lecture.mp4 --extract
+# A draft is written to .lecturen/sessions/<id>/draft.md
+```
+
+To render (re-run later):
+```
+lecturen render <session_id>
+# Writes .lecturen/sessions/<id>/final.md
+```
+
+Notes:
+- Only transcript chunks are sent to the API; raw video is never uploaded.
+- If `OPENAI_API_KEY` is not set or `--no-extract` is used, the pipeline stops after transcription.
+
 These will be implemented in M3/M2 respectively.
 
 ## Configuration

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from typing import List, Dict
+from typing import List, Dict, Any
 from pathlib import Path
 from datetime import datetime
 from .models import AtomicNote, Transcript
@@ -7,10 +7,16 @@ from .utils.io import write_text
 
 SECTION_ORDER = ["Definition","Concept","Theorem","Procedure","Example","Equation","Pitfall","QA"]
 
-def _front_matter(meta: Dict[str,str]) -> str:
+def _front_matter(meta: Dict[str, Any]) -> str:
     lines = ["---"]
-    for k,v in meta.items():
-        lines.append(f"{k}: {v}")
+    for k, v in meta.items():
+        if isinstance(v, list):
+            list_str = "[" + ", ".join(str(x) for x in v) + "]"
+            lines.append(f"{k}: {list_str}")
+        elif isinstance(v, str):
+            lines.append(f'{k}: "{v}"')
+        else:
+            lines.append(f"{k}: {v}")
     lines.append("---")
     return "\n".join(lines)
 
@@ -35,13 +41,13 @@ def _render_transcript(transcript: Transcript) -> str:
 
 def render_markdown(title: str, source: str, transcript_model: str, llm_model: str, duration: str, items: List[AtomicNote], transcript: Transcript) -> str:
     meta = {
-        "title": f"\"{title}\"",
-        "source": f"\"{source}\"",
-        "created": f"\"{datetime.utcnow().isoformat()}\"",
-        "duration": f"\"{duration}\"",
-        "transcript_model": f"\"{transcript_model}\"",
-        "llm_model": f"\"{llm_model}\"",
-        "tags": "[lecture]",
+        "title": title,
+        "source": source,
+        "created": datetime.utcnow().isoformat(),
+        "duration": duration,
+        "transcript_model": transcript_model,
+        "llm_model": llm_model,
+        "tags": ["lecture"],
     }
     sections = []
     for sec in SECTION_ORDER:
