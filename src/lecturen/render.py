@@ -58,6 +58,7 @@ def render_markdown(title: str, source: str, transcript_model: str, llm_model: s
     out_lines.append(_front_matter(meta))
     out_lines.append(f"# {title}")
     if sections:
+        out_lines.append("")
         sections_block = "\n\n".join(sections)
         out_lines.append(sections_block)
     out_lines.append("## Links")
