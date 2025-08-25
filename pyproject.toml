@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "quick-lecture-note-taker"
+version = "0.1.0"
+description = "Automated lecture note taker: ingest video, transcribe, extract atomic notes, and render Markdown to an Obsidian vault."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "typer>=0.12.3",
+    "rich>=13.7.1",
+    "pydantic>=2.8.2",
+    "orjson>=3.10.7",
+    "tenacity>=8.4.2",
+    "rapidfuzz>=3.9.6",
+    "yt-dlp>=2025.1.26",
+    "faster-whisper>=1.0.3",
+    "tiktoken>=0.7.0",
+    "openai>=1.47.0",
+    "pyyaml>=6.0.2",
+    "python-dateutil>=2.9.0.post0",
+]
+
+[project.scripts]
+lecturen = "lecturen.cli:app"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
