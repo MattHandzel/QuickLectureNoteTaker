@@ -11,14 +11,13 @@ M1 implements ingest → audio extract → transcription with a CLI. Subsequent 
 Option A: Nix (recommended)
 
 - Install Nix with flakes enabled.
-- Enter the dev shell:
+- Enter the dev shell (this will create ./.venv and pip install requirements.txt automatically):
 
 ```
 nix develop
 ```
 
 Option B: Python venv
-
 ```
 python -m venv .venv
 source .venv/bin/activate

@@ -9,33 +9,29 @@
       let
         pkgs = import nixpkgs { inherit system; };
         python = pkgs.python312;
-        pythonEnv = python.withPackages (ps: with ps; [
-          typer
-          rich
-          pydantic
-          orjson
-          tenacity
-          rapidfuzz
-          yt-dlp
-          tiktoken
-          pyyaml
-          python-dateutil
-          openai
-          faster-whisper
-          pytest
-        ]);
       in {
         devShells.default = pkgs.mkShell {
           buildInputs = [
-            pythonEnv
+            python
             pkgs.ffmpeg
             pkgs.yt-dlp
           ];
           shellHook = ''
+            if [ ! -d ".venv" ]; then
+              echo "Creating Python venv in ./.venv"
+              ${python}/bin/python -m venv .venv
+            fi
+            . .venv/bin/activate
+            python -m pip install --upgrade pip
+            if [ -f requirements.txt ]; then
+              echo "Installing Python deps from requirements.txt"
+              pip install -r requirements.txt
+            fi
             export PYTHONPATH=$PWD/src:$PYTHONPATH
-            echo "Dev shell ready. Python: $(python -V)"
-            echo "ffmpeg: $(ffmpeg -version | head -n1)"
-            echo "yt-dlp: $(yt-dlp --version)"
+            echo "Dev shell ready."
+            python -V || true
+            ffmpeg -version | head -n1 || true
+            yt-dlp --version || true
           '';
         };
       });
