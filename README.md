@@ -35,6 +35,19 @@ On Nix these are provided by the dev shell.
 
 After installing (pyproject exposes `lecturen`):
 
+## Troubleshooting
+
+- Python version: Use Python 3.12. Some dependencies (faster-whisper/PyAV) do not yet provide stable wheels for 3.13.
+  - Nix: run `nix develop` and use the provided Python.
+  - Non-Nix: create a 3.12 venv and reinstall: `python3.12 -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt`
+- System libraries on non-Nix:
+  - Install: `sudo apt-get update && sudo apt-get install -y libstdc++6 ffmpeg`
+  - Then reinstall deps in your venv.
+- ImportError: libstdc++.so.6
+  - Ensure libstdc++6 is installed (see above) and that you are using Python 3.12.
+- PYTHONPATH
+  - Ensure `export PYTHONPATH=src` before running `python -m lecturen.cli`.
+
 ```
 lecturen --help
 ```

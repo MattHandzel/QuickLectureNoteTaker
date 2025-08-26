@@ -15,6 +15,10 @@ from .normalize import dedupe_and_merge
 from .render import render_markdown, write_markdown
 from .utils.io import read_json, write_json
 
+if sys.version_info >= (3, 13):
+    print("Python 3.13 is not yet supported for faster-whisper/PyAV. Please use Python 3.12 (recommended: `nix develop` or a 3.12 venv).", file=sys.stderr)
+    raise SystemExit(1)
+
 app = typer.Typer(add_completion=False)
 
 @app.callback()
