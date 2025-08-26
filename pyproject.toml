@@ -7,7 +7,7 @@ name = "quick-lecture-note-taker"
 version = "0.1.0"
 description = "Automated lecture note taker: ingest video, transcribe, extract atomic notes, and render Markdown to an Obsidian vault."
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.12,<3.13"
 dependencies = [
     "typer>=0.12.3",
     "rich>=13.7.1",

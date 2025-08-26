@@ -47,6 +47,11 @@ After installing (pyproject exposes `lecturen`):
   - Ensure libstdc++6 is installed (see above) and that you are using Python 3.12.
 - PYTHONPATH
   - Ensure `export PYTHONPATH=src` before running `python -m lecturen.cli`.
+- Wrong Python in venv (e.g., nix shows Python 3.13):
+  - Remove and recreate the venv:
+    - `rm -rf .venv && nix develop`
+  - The shell will recreate a Python 3.12 venv, install requirements, and run `pip install -e .`
+
 
 ```
 lecturen --help
